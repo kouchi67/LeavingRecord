@@ -300,9 +300,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int horizontal=0x7f040000;
         public static final int indicator=0x7f040008;
+        public static final int linearLayoutCell=0x7f04000a;
+        public static final int linearLayoutCell1=0x7f04000b;
+        public static final int linearLayoutCell2=0x7f04000d;
+        public static final int linearLayoutCell3=0x7f04000f;
         public static final int listView=0x7f040007;
         public static final int none=0x7f040002;
         public static final int pager=0x7f040009;
+        public static final int recordCellDayLabel=0x7f04000c;
+        public static final int recordCellRemarksLabel=0x7f040010;
+        public static final int recordCellTimeLabel=0x7f04000e;
         public static final int textView1=0x7f040005;
         public static final int textView2=0x7f040006;
         public static final int triangle=0x7f040003;
@@ -318,8 +325,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int layout02=0x7f030001;
         public static final int list_view=0x7f030002;
         public static final int main=0x7f030003;
-        public static final int record_list_view=0x7f030004;
-        public static final int vpi__tab=0x7f030005;
+        public static final int record_list_cell_view=0x7f030004;
+        public static final int record_list_view=0x7f030005;
+        public static final int vpi__tab=0x7f030006;
     }
     public static final class string {
         public static final int app_name=0x7f0a0001;

@@ -1,17 +1,66 @@
 package com.niyaty.leavingrecord;
 
+import java.util.ArrayList;
+
+import android.R.integer;
 import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class CalendarAdapter extends ArrayAdapter<String> {
 
-    public CalendarAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
+    static class ViewHolder {
+        View cell;
+        TextView day;
+        TextView time;
+        TextView remarks;
     }
 
-    public View getView() {
-        return null;
+    private ArrayList<String> items;
+    private LayoutInflater inflater;
+
+    public CalendarAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
+        super(context, textViewResourceId, items);
+        this.items = items;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        ViewHolder holder;
+        if (view == null) {
+            view = inflater.inflate(R.layout.record_list_cell_view, null);
+
+            View cell = (View) view.findViewById(R.id.linearLayoutCell);
+            TextView day = (TextView) view.findViewById(R.id.recordCellDayLabel);
+            TextView time = (TextView) view.findViewById(R.id.recordCellTimeLabel);
+            TextView remarks = (TextView) view.findViewById(R.id.recordCellRemarksLabel);
+
+            holder = new ViewHolder();
+            holder.cell = cell;
+            holder.day = day;
+            holder.time = time;
+            holder.remarks = remarks;
+
+            view.setTag(holder);
+
+        } else {
+            holder = (ViewHolder) view.getTag();
+        }
+
+        if (position % 2 == 0) {
+            holder.cell.setBackgroundColor(Color.rgb(99, 99, 99));
+        } else {
+            holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
+        }
+
+        holder.day.setText(String.format("%1$02d day", position+1));
+
+        return view;
+    }
 }
