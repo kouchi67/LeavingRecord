@@ -8,17 +8,50 @@
 
     <com.viewpagerindicator.TitlePageIndicator
         android:id="@+id/indicator"
-        android:padding="10dip"
+        android:padding="10dp"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:background="#18FF0000"
         app:footerIndicatorStyle="triangle"
         />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         />
+
+    <LinearLayout
+        android:id="@+id/calendarListViewFooter"
+        android:layout_height="50dp"
+        android:layout_width="fill_parent">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_height="fill_parent"
+            android:layout_width="70dp"
+            android:text="先月" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_height="fill_parent"
+            android:layout_width="70dp"
+            android:text="翌月" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:text="ButtonA"/>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:text="ButtonB"/>
+
+    </LinearLayout>
 
 </LinearLayout>

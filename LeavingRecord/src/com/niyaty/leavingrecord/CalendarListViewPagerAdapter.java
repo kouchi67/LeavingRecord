@@ -1,6 +1,6 @@
 package com.niyaty.leavingrecord;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.viewpagerindicator.TitleProvider;
 
@@ -11,13 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyViewPagerAdapter extends PagerAdapter implements TitleProvider {
+public class CalendarListViewPagerAdapter extends PagerAdapter implements TitleProvider {
 
-    private String[] titles = new String[] {};
+    private ArrayList<String> titles = new ArrayList<String>();
     private final Context context;
-    private List<View> mView;
+    private ArrayList<View> mView;
 
-    public MyViewPagerAdapter( Context context, List<View> view) {
+    public CalendarListViewPagerAdapter( Context context, ArrayList<View> view) {
         this.context = context;
         this.mView = view;
     }
@@ -26,17 +26,17 @@ public class MyViewPagerAdapter extends PagerAdapter implements TitleProvider {
         return mView.get(position);
     }
 
-    public void setTitleArr(String[] title) {
+    public void setTitleArr(ArrayList<String> title) {
         this.titles = title;
     }
     @Override
     public String getTitle( int position ) {
-        return titles[ position ];
+        return titles.get(position);
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        return titles.size();
     }
 
     @Override
@@ -59,6 +59,7 @@ public class MyViewPagerAdapter extends PagerAdapter implements TitleProvider {
     public void destroyItem( View pager, int position, Object view ) {
         ( (ViewPager) pager ).removeView( (View) view );
     }
+
     @Override
     public boolean isViewFromObject( View view, Object object ) {
         return view.equals( object );
@@ -73,7 +74,8 @@ public class MyViewPagerAdapter extends PagerAdapter implements TitleProvider {
     }
 
     @Override
-    public void startUpdate( View view ) {}
+    public void startUpdate( View view ) {
+    }
 
     @Override
     public void restoreState(Parcelable arg0, ClassLoader arg1) {

@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CalendarAdapter extends ArrayAdapter<String> {
+public class CalendarListAdapter extends ArrayAdapter<String> {
 
-    static class ViewHolder {
+	static class ViewHolder {
         View cell;
         TextView day;
         TextView time;
@@ -23,7 +23,7 @@ public class CalendarAdapter extends ArrayAdapter<String> {
     private ArrayList<String> items;
     private LayoutInflater inflater;
 
-    public CalendarAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
+    public CalendarListAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
         super(context, textViewResourceId, items);
         this.items = items;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,7 +59,8 @@ public class CalendarAdapter extends ArrayAdapter<String> {
             holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
         }
 
-        holder.day.setText(String.format("%1$02d day", position+1));
+        holder.day.setText(String.format("%1$2d 日", position+1));
+        holder.remarks.setText("remarks");
 
         return view;
     }
