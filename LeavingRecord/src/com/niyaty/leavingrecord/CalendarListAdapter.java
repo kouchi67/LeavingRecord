@@ -11,21 +11,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CalendarListAdapter extends ArrayAdapter<String> {
+public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
 
-	static class ViewHolder {
+    static class ViewHolder {
         View cell;
         TextView day;
         TextView time;
         TextView remarks;
     }
 
-    private ArrayList<String> items;
+    private ArrayList<MyRecord> records;
     private LayoutInflater inflater;
 
-    public CalendarListAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
-        super(context, textViewResourceId, items);
-        this.items = items;
+    public CalendarListAdapter(Context context, int textViewResourceId, ArrayList<MyRecord> records) {
+        super(context, textViewResourceId, records);
+        this.records = records;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -59,8 +59,13 @@ public class CalendarListAdapter extends ArrayAdapter<String> {
             holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
         }
 
+        MyRecord record = null;
         holder.day.setText(String.format("%1$2d 日", position+1));
-        holder.remarks.setText("remarks");
+        holder.remarks.setText("");
+        if (records.size() > position) {
+            record = records.get(position);
+            holder.remarks.setText(record.getRemarks());
+        }
 
         return view;
     }

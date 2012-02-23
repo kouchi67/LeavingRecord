@@ -8,7 +8,7 @@ public class MyRecord {
     final static public String REST_TIME = "rest_time";
     final static public String DATE = "date";
     final static public String REMARKS = "remarks";
-    final static public boolean HOLIDAY  = false;
+    final static public String HOLIDAY  = "holiday";
 
     private int id;
     private String arrival;
@@ -27,6 +27,17 @@ public class MyRecord {
         this.remarks = null;
         this.holiday = 0;
     }
+
+    public void clear() {
+        id = 0;
+        arrival = null;
+        leaving = null;
+        restTime = null;
+        date = null;
+        remarks = null;
+        holiday = 0;
+    }
+
     /**
      * idを取得します。
      * @return id
@@ -34,6 +45,7 @@ public class MyRecord {
     public int getId() {
         return id;
     }
+
     /**
      * idを設定します。
      * @param id id
@@ -41,6 +53,7 @@ public class MyRecord {
     public void setId(int id) {
         this.id = id;
     }
+
     /**
      * arrivalを取得します。
      * @return arrival
@@ -48,6 +61,7 @@ public class MyRecord {
     public String getArrival() {
         return arrival;
     }
+
     /**
      * arrivalを設定します。
      * @param arrival arrival
@@ -55,6 +69,7 @@ public class MyRecord {
     public void setArrival(String arrival) {
         this.arrival = arrival;
     }
+
     /**
      * leavingを取得します。
      * @return leaving
@@ -62,6 +77,7 @@ public class MyRecord {
     public String getLeaving() {
         return leaving;
     }
+
     /**
      * leavingを設定します。
      * @param leaving leaving
@@ -69,6 +85,7 @@ public class MyRecord {
     public void setLeaving(String leaving) {
         this.leaving = leaving;
     }
+
     /**
      * restTimeを取得します。
      * @return restTime
@@ -76,6 +93,7 @@ public class MyRecord {
     public String getRestTime() {
         return restTime;
     }
+
     /**
      * restTimeを設定します。
      * @param restTime restTime
@@ -83,6 +101,7 @@ public class MyRecord {
     public void setRestTime(String restTime) {
         this.restTime = restTime;
     }
+
     /**
      * dateを取得します。
      * @return date
@@ -90,6 +109,7 @@ public class MyRecord {
     public String getDate() {
         return date;
     }
+
     /**
      * dateを設定します。
      * @param date date
@@ -97,6 +117,7 @@ public class MyRecord {
     public void setDate(String date) {
         this.date = date;
     }
+
     /**
      * remarksを取得します。
      * @return remarks
@@ -104,6 +125,7 @@ public class MyRecord {
     public String getRemarks() {
         return remarks;
     }
+
     /**
      * remarksを設定します。
      * @param remarks remarks
@@ -111,13 +133,15 @@ public class MyRecord {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
     /**
      * holidayを取得します。
      * @return holiday
      */
-    public int isHoliday() {
+    public int getHoliday() {
         return holiday;
     }
+
     /**
      * holidayを設定します。
      * @param holiday holiday

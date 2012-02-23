@@ -2,23 +2,25 @@ package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 import com.viewpagerindicator.TitlePageIndicator;
 
-import android.R.integer;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class CalendarListViewActivity extends Activity implements OnClickListener {
 
@@ -30,7 +32,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        updateView();
+//        updateView();
 
         Button lastMonthButton = (Button) findViewById(R.id.button1);
         Button nextMonthButton = (Button) findViewById(R.id.button2);
@@ -40,7 +42,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         nextMonthButton.setOnClickListener(this);
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
-        button4.setText("create database");
+        button4.setText("Next Activty");
     }
 
 
@@ -56,13 +58,26 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
 
-        ArrayList<String> items = new ArrayList<String>();
+        ArrayList<MyRecord> items = new ArrayList<MyRecord>();
         int dayOfMonthMaximum = calendar.getActualMaximum(Calendar.DATE);
-        for (int i = 0; i < dayOfMonthMaximum; i++) {
-            int day = i+1;
-            items.add(day + " 日");
-        }
+//        for (int i = 0; i < dayOfMonthMaximum; i++) {
+//            int day = i+1;
+//            items.add(day + " 日");
+//        }
         // ----
+//        MyRecord record = new MyRecord();
+        MyDatabaseController db = new MyDatabaseController(context);
+        db.setReadable();
+        Cursor cursor = db.getRecords();
+        if (cursor.moveToFirst()) {
+            do {
+                Log.d(null, cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
+                MyRecord record = new MyRecord();
+//                record.clear();
+                record.setRemarks(cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
+                items.add(record);
+            } while (cursor.moveToNext());
+        }
 
         CalendarListAdapter calendarAdapter = new CalendarListAdapter(context, R.layout.record_list_cell_view, items);
         titles.add("View1");
@@ -104,17 +119,42 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         case R.id.button3:
             break;
         case R.id.button4:
-            MyDatabaseHelper helper = new MyDatabaseHelper(getApplicationContext(), "mydb.db", 1);
-            try {
-                helper.getWritableDatabase();
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
+            Intent intent = new Intent(getApplicationContext(), InputViewActivity.class);
+            startActivity(intent);
             break;
         default:
             break;
         }
 
     }
+
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateView();
+   }
 
 }
