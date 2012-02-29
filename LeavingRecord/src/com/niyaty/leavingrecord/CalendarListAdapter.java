@@ -61,9 +61,11 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
 
         MyRecord record = null;
         holder.day.setText(String.format("%1$2d 日", position+1));
+        holder.time.setText("");
         holder.remarks.setText("");
         if (records.size() > position) {
             record = records.get(position);
+            holder.time.setText(record.getArrival() + " - " + record.getLeaving());
             holder.remarks.setText(record.getRemarks());
         }
 

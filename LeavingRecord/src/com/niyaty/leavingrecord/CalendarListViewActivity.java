@@ -24,15 +24,23 @@ import android.widget.ListView;
 
 public class CalendarListViewActivity extends Activity implements OnClickListener {
 
-    private LayoutInflater layoutInflater;
+    private Context context;
     private Calendar calendar = Calendar.getInstance();
+    private ArrayList<MyRecord> records;
+    private CalendarListAdapter calendarAdapter;
+    private MyDatabaseController db;
+
+    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.calendar_list_view);
 
-//        updateView();
+        context = getApplicationContext();
+
+        db = new MyDatabaseController(context);
+        listView = (ListView) findViewById(R.id.calendarListView);
 
         Button lastMonthButton = (Button) findViewById(R.id.button1);
         Button nextMonthButton = (Button) findViewById(R.id.button2);
@@ -43,65 +51,41 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
         button4.setText("Next Activty");
+
+        updateView();
+
     }
 
 
 
     private void updateView() {
-        Context context = getApplicationContext();
-
-        ArrayList<String> titles = new ArrayList<String>();
-        ArrayList<View> arrView = new ArrayList<View>();
-        layoutInflater = this.getLayoutInflater();
-
-        // ----
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
 
-        ArrayList<MyRecord> items = new ArrayList<MyRecord>();
         int dayOfMonthMaximum = calendar.getActualMaximum(Calendar.DATE);
-//        for (int i = 0; i < dayOfMonthMaximum; i++) {
-//            int day = i+1;
-//            items.add(day + " 日");
-//        }
-        // ----
-//        MyRecord record = new MyRecord();
-        MyDatabaseController db = new MyDatabaseController(context);
+
+        updateMyRecords();
+        calendarAdapter = new CalendarListAdapter(context, R.layout.record_list_cell_view, records);
+
+        listView.setAdapter(calendarAdapter);
+
+    }
+
+    private void updateMyRecords() {
+        ArrayList<MyRecord> items = new ArrayList<MyRecord>();
         db.setReadable();
         Cursor cursor = db.getRecords();
         if (cursor.moveToFirst()) {
             do {
-                Log.d(null, cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
                 MyRecord record = new MyRecord();
-//                record.clear();
+                record.setArrival(cursor.getString(cursor.getColumnIndex(MyRecord.ARRIVAL)));
+                record.setLeaving(cursor.getString(cursor.getColumnIndex(MyRecord.LEAVING)));
                 record.setRemarks(cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
                 items.add(record);
             } while (cursor.moveToNext());
         }
 
-        CalendarListAdapter calendarAdapter = new CalendarListAdapter(context, R.layout.record_list_cell_view, items);
-        titles.add("View1");
-        titles.add(year + " 年 " + month + " 月");
-        titles.add("View2");
-
-        View view = layoutInflater.inflate(R.layout.list_view, null);
-        ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(calendarAdapter);
-
-        view = layoutInflater.inflate(R.layout.aggregate_view, null);
-        arrView.add(view);
-        arrView.add(listView);
-        view = layoutInflater.inflate(R.layout.input_view, null);
-        arrView.add(view);
-
-        CalendarListViewPagerAdapter pagerAdapter = new CalendarListViewPagerAdapter(this, arrView);
-        pagerAdapter.setTitleArr(titles);
-
-        ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        TitlePageIndicator indicator = (TitlePageIndicator)findViewById(R.id.indicator);
-        pager.setAdapter(pagerAdapter);
-        indicator.setViewPager(pager);
-        indicator.setCurrentItem(1);
+        records = items;
     }
 
 
@@ -155,6 +139,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     protected void onResume() {
         super.onResume();
         updateView();
+//        calendarAdapter.notifyDataSetChanged();
    }
 
 }

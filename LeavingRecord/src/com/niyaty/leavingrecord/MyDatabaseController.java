@@ -53,7 +53,7 @@ public class MyDatabaseController {
     }
 
     public Cursor getRecords() {
-        String sql = "select * from " + MyRecord.TABLE_NAME + " ;";
+        String sql = "select * from " + MyRecord.TABLE_NAME + ";";
         Cursor c = db.rawQuery(sql, null);
         return c;
     }
