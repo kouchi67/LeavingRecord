@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.R.integer;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,15 +60,12 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
             holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
         }
 
-        MyRecord record = null;
-        holder.day.setText(String.format("%1$2d 日", position+1));
-        holder.time.setText("");
-        holder.remarks.setText("");
-        if (records.size() > position) {
-            record = records.get(position);
-            holder.time.setText(record.getArrival() + " - " + record.getLeaving());
-            holder.remarks.setText(record.getRemarks());
-        }
+        MyRecord record = records.get(position);
+        String dateString = records.get(position).getDate();
+        String recordDay = dateString.substring(8);
+        holder.day.setText(recordDay + " 日");
+        holder.time.setText(record.getArrival() + " - " + record.getLeaving());
+        holder.remarks.setText(record.getRemarks());
 
         return view;
     }

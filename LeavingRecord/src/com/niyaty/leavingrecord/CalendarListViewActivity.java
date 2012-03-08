@@ -2,25 +2,20 @@ package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
-
-import com.viewpagerindicator.TitlePageIndicator;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class CalendarListViewActivity extends Activity implements OnClickListener {
 
@@ -31,6 +26,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     private MyDatabaseController db;
 
     private ListView listView;
+    private TextView dateLabel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +38,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         db = new MyDatabaseController(context);
         listView = (ListView) findViewById(R.id.calendarListView);
 
+        dateLabel = (TextView) findViewById(R.id.calendarListViewDateLabel);
         Button lastMonthButton = (Button) findViewById(R.id.button1);
         Button nextMonthButton = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
@@ -51,9 +48,6 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
         button4.setText("Next Activty");
-
-        updateView();
-
     }
 
 
@@ -61,8 +55,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     private void updateView() {
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
-
-        int dayOfMonthMaximum = calendar.getActualMaximum(Calendar.DATE);
+        dateLabel.setText(year + " 年 " + month + " 月 ");
 
         updateMyRecords();
         calendarAdapter = new CalendarListAdapter(context, R.layout.record_list_cell_view, records);
@@ -75,14 +68,53 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         ArrayList<MyRecord> items = new ArrayList<MyRecord>();
         db.setReadable();
         Cursor cursor = db.getRecords();
-        if (cursor.moveToFirst()) {
-            do {
-                MyRecord record = new MyRecord();
-                record.setArrival(cursor.getString(cursor.getColumnIndex(MyRecord.ARRIVAL)));
-                record.setLeaving(cursor.getString(cursor.getColumnIndex(MyRecord.LEAVING)));
-                record.setRemarks(cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
-                items.add(record);
-            } while (cursor.moveToNext());
+        int dayOfMonthMaximum = calendar.getActualMaximum(Calendar.DATE);
+
+        String month = String.format("%1$02d", calendar.get(Calendar.MONTH) + 1);
+        String year = calendar.get(Calendar.YEAR) + "";
+
+        boolean isNullForCursor = false;
+        if (cursor.moveToFirst() == false) {
+            Log.d("", "_id = " + cursor.getInt(0));
+            isNullForCursor = true;
+        }
+
+        // CalendarList作成、1日〜月末までループ
+        for (int i = 0; i < dayOfMonthMaximum; i++) {
+            String day = String.format("%1$02d", i+1);
+            MyRecord record = new MyRecord();
+
+            // Cursorが空の場合、recordに日付のみ格納する
+            // Cursorが空じゃない場合、recordに値を格納する
+
+            if (isNullForCursor) {
+                record.setArrival("");
+                record.setLeaving("");
+                record.setDate(year + "/" + month + "/" + day);
+                Log.d(null, "day = " + day);
+            } else {
+                Log.d("", "day = " + day + " , _id = " + cursor.getInt(0));
+                String dateString = cursor.getString(cursor.getColumnIndex(MyRecord.DATE));
+                if (dateString.substring(8).compareTo(day) == 0) {
+                    // 当該日と、Cursorで指している日が同一であれば、recordに値を格納してCursorを進める
+                    record.setArrival(cursor.getString(cursor.getColumnIndex(MyRecord.ARRIVAL)));
+                    record.setLeaving(cursor.getString(cursor.getColumnIndex(MyRecord.LEAVING)));
+                    record.setRemarks(cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
+                    record.setDate(cursor.getString(cursor.getColumnIndex(MyRecord.DATE)));
+
+                    if (cursor.moveToNext()) {
+                        isNullForCursor = false;
+                    } else {
+                        isNullForCursor = true;
+                    }
+
+                } else {
+                    record.setArrival("");
+                    record.setLeaving("");
+                    record.setDate(year + "/" + month + "/" + day);
+                }
+            }
+            items.add(record);
         }
 
         records = items;

@@ -12,12 +12,20 @@
         android:text="DateLabel"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ListView
-        android:id="@+id/calendarListView"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </ListView>
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@+id/calendarListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </ListView>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/calendarListViewFooter"

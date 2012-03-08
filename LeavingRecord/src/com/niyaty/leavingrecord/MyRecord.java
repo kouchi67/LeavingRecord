@@ -28,6 +28,14 @@ public class MyRecord {
         this.holiday = 0;
     }
 
+    public boolean isNull() {
+        boolean isNull = false;
+        if (id == 0) {
+            isNull = true;
+        }
+        return isNull;
+    }
+
     public void clear() {
         id = 0;
         arrival = null;
