@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/inputViewLinearLayoutDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/inputViewDateLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="1999/12/31"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center" android:textSize="32dp" android:textStyle="bold|italic"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/inputViewLinearLayoutArrival"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/inputViewArrivalLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="出社"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/inputViewArrivalButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="09:00"
+            android:layout_weight="1"
+            android:textSize="24dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/inputViewLinearLayoutLeaving"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/inputViewLeavingLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="退社"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/inputViewLeavingButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="18:00"
+            android:layout_weight="1"
+            android:textSize="24dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/inputViewLinearLayoutRestTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/inputViewRestLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="休憩時間"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/inputViewRestTimeButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="01:00"
+            android:layout_weight="1"
+            android:textSize="24dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/inputViewLinearLayoutRemarks"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/inputViewRemarksLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:text="備考"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/inputViewRemarksEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="remarks"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/inputViewGoButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="決定"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

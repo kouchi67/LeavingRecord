@@ -1,6 +1,7 @@
 package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.R.integer;
 import android.content.Context;
@@ -23,6 +24,7 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
 
     private ArrayList<MyRecord> records;
     private LayoutInflater inflater;
+    Calendar calendar = Calendar.getInstance();
 
     public CalendarListAdapter(Context context, int textViewResourceId, ArrayList<MyRecord> records) {
         super(context, textViewResourceId, records);
@@ -54,18 +56,28 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
             holder = (ViewHolder) view.getTag();
         }
 
-        if (position % 2 == 0) {
-            holder.cell.setBackgroundColor(Color.rgb(99, 99, 99));
-        } else {
-            holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
-        }
-
         MyRecord record = records.get(position);
         String dateString = records.get(position).getDate();
         String recordDay = dateString.substring(8);
         holder.day.setText(recordDay + " 日");
         holder.time.setText(record.getArrival() + " - " + record.getLeaving());
         holder.remarks.setText(record.getRemarks());
+
+        int year = Integer.parseInt(dateString.substring(0, 4));
+        int month = Integer.parseInt(dateString.substring(5, 7));
+        int day = Integer.parseInt(recordDay);
+        calendar.set(year, month-1, day);
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+            holder.cell.setBackgroundColor(Color.rgb(96, 96, 220));
+        } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            holder.cell.setBackgroundColor(Color.rgb(220,  96,  96));
+        } else {
+            if (position % 2 == 0) {
+                holder.cell.setBackgroundColor(Color.rgb(99, 99, 99));
+            } else {
+                holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
+            }
+        }
 
         return view;
     }

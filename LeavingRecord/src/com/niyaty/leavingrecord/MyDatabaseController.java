@@ -36,24 +36,53 @@ public class MyDatabaseController {
         }
     }
 
-    public void insertRecord(MyRecord record) {
-        ContentValues cv = new ContentValues();
-        cv.put(MyRecord.DATE, record.getDate());
-        cv.put(MyRecord.ARRIVAL, record.getArrival());
-        cv.put(MyRecord.LEAVING, record.getLeaving());
-        cv.put(MyRecord.REST_TIME, record.getRestTime());
-        cv.put(MyRecord.REMARKS, record.getRemarks());
-        cv.put(MyRecord.HOLIDAY, record.getHoliday());
+    public void close() {
+        helper.close();
+    }
 
-        String sql = "insert into " + MyRecord.TABLE_NAME +
-        " ( " + MyRecord.REMARKS + " ) " +
-        " values ( '" + record.getRemarks() + "' ) ;";
+    public void insertRecord(MyRecord record) {
+        String sql =
+            "insert into " + MyRecord.TABLE_NAME +
+            " ( " +
+            MyRecord.DATE + ", " +
+            MyRecord.ARRIVAL + ", " +
+            MyRecord.LEAVING + ", " +
+            MyRecord.REST_TIME + ", " +
+            MyRecord.REMARKS + ", " +
+            MyRecord.HOLIDAY +
+            " ) " +
+            " values ( " +
+            " '" + record.getDate() + "' , " +
+            " '" + record.getArrival() + "' , " +
+            " '" + record.getLeaving() + "' , " +
+            " '" + record.getRestTime() + "' , " +
+            " '" + record.getRemarks() + "' , " +
+            " 0 " +
+            ") ;";
         Log.d(null, sql);
         db.execSQL(sql);
     }
 
-    public Cursor getRecords() {
-        String sql = "select * from " + MyRecord.TABLE_NAME + " order by date asc;";
+    public void updateRecord(MyRecord record) {
+        String sql =
+            "update " + MyRecord.TABLE_NAME + " set " +
+            MyRecord.DATE + " = '" + record.getDate() + "', " +
+            MyRecord.ARRIVAL + " = '" + record.getArrival() + "', " +
+            MyRecord.LEAVING + " = '" + record.getLeaving() + "', " +
+            MyRecord.REST_TIME + " = '" + record.getRestTime() + "', " +
+            MyRecord.REMARKS + " = '" + record.getRemarks() + "', " +
+            MyRecord.HOLIDAY + " = " + record.getHoliday() + " " +
+            "where " + MyRecord.ID + " = " + record.getId() + ";";
+        Log.d(null, sql);
+        db.execSQL(sql);
+    }
+
+    public Cursor getRecords(String yearMonth) {
+        String sql =
+            "select * from " + MyRecord.TABLE_NAME +
+            " where date like " + "'" + yearMonth + "%'" +
+            " order by date asc;";
+        Log.d(null, sql);
         Cursor c = db.rawQuery(sql, null);
         return c;
     }

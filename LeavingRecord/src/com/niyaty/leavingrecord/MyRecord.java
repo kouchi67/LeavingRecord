@@ -1,6 +1,9 @@
 package com.niyaty.leavingrecord;
 
-public class MyRecord {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class MyRecord implements Serializable {
     final static public String TABLE_NAME = "record";
     final static public String ID = "_id";
     final static public String ARRIVAL = "arrival";
