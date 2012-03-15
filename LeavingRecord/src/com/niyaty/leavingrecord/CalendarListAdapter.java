@@ -2,7 +2,9 @@ package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
+import android.R.bool;
 import android.R.integer;
 import android.content.Context;
 import android.graphics.Color;
@@ -67,7 +69,9 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         int month = Integer.parseInt(dateString.substring(5, 7));
         int day = Integer.parseInt(recordDay);
         calendar.set(year, month-1, day);
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+        if (isNationalHoliday()) {
+            holder.cell.setBackgroundColor(Color.rgb(220,  96,  96));
+        } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             holder.cell.setBackgroundColor(Color.rgb(96, 96, 220));
         } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             holder.cell.setBackgroundColor(Color.rgb(220,  96,  96));
@@ -80,5 +84,68 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         }
 
         return view;
+    }
+
+    private boolean isNationalHoliday() {
+        String date = String.format("%04d/%02d/%02d",
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH)+1,
+                calendar.get(Calendar.DAY_OF_MONTH));
+
+        String[] holidayList2012 = {
+                "2012/01/01",
+                "2012/01/02",
+                "2012/01/09",
+                "2012/02/11",
+                "2012/03/20",
+                "2012/04/29",
+                "2012/04/30",
+                "2012/05/03",
+                "2012/05/04",
+                "2012/05/05",
+                "2012/07/16",
+                "2012/09/17",
+                "2012/09/22",
+                "2012/10/08",
+                "2012/11/03",
+                "2012/11/23",
+                "2012/12/23",
+                "2012/12/24",
+        };
+
+        String[] holidayList2013 = {
+                "2013/01/01",
+                "2013/01/14",
+                "2013/02/11",
+                "2013/03/20",
+                "2013/04/29",
+                "2013/04/30",
+                "2013/05/03",
+                "2013/05/04",
+                "2013/05/05",
+                "2013/05/06",
+                "2013/07/15",
+                "2013/09/16",
+                "2013/09/23",
+                "2013/10/14",
+                "2013/11/03",
+                "2013/11/04",
+                "2013/11/23",
+                "2013/12/23",
+        };
+
+        for (String holiday : holidayList2012) {
+            if (date.compareTo(holiday) == 0) {
+                return true;
+            }
+        }
+
+        for (String holiday : holidayList2013) {
+            if (date.compareTo(holiday) == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
