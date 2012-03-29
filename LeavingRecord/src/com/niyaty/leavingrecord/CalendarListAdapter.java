@@ -1,3 +1,4 @@
+
 package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
@@ -34,12 +35,16 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public void setRecords(ArrayList<MyRecord> records) {
+        this.records = records;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         ViewHolder holder;
         if (view == null) {
-            view = inflater.inflate(R.layout.record_list_cell_view, null);
+            view = inflater.inflate(R.layout.calendar_list_cell_view, null);
 
             View cell = (View) view.findViewById(R.id.linearLayoutCell);
             TextView day = (TextView) view.findViewById(R.id.recordCellDayLabel);
@@ -68,13 +73,13 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         int year = Integer.parseInt(dateString.substring(0, 4));
         int month = Integer.parseInt(dateString.substring(5, 7));
         int day = Integer.parseInt(recordDay);
-        calendar.set(year, month-1, day);
+        calendar.set(year, month - 1, day);
         if (isNationalHoliday()) {
-            holder.cell.setBackgroundColor(Color.rgb(220,  96,  96));
+            holder.cell.setBackgroundColor(Color.rgb(220, 96, 96));
         } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             holder.cell.setBackgroundColor(Color.rgb(96, 96, 220));
         } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            holder.cell.setBackgroundColor(Color.rgb(220,  96,  96));
+            holder.cell.setBackgroundColor(Color.rgb(220, 96, 96));
         } else {
             if (position % 2 == 0) {
                 holder.cell.setBackgroundColor(Color.rgb(99, 99, 99));
@@ -89,7 +94,7 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
     private boolean isNationalHoliday() {
         String date = String.format("%04d/%02d/%02d",
                 calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH)+1,
+                calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DAY_OF_MONTH));
 
         String[] holidayList2012 = {
@@ -148,4 +153,5 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
 
         return false;
     }
+
 }

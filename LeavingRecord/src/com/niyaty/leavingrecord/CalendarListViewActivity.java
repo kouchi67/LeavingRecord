@@ -1,3 +1,4 @@
+
 package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
@@ -62,17 +63,19 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         button4.setOnClickListener(this);
     }
 
-
-
     private void updateView() {
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
         dateLabel.setText(year + " 年 " + month + " 月 ");
 
         updateMyRecords();
-        calendarAdapter = new CalendarListAdapter(context, R.layout.record_list_cell_view, records);
-
-        listView.setAdapter(calendarAdapter);
+        if (calendarAdapter == null) {
+            calendarAdapter = new CalendarListAdapter(context, R.layout.calendar_list_cell_view, records);
+            listView.setAdapter(calendarAdapter);
+        } else {
+            calendarAdapter.setRecords(records);
+            calendarAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -92,7 +95,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
         // CalendarList作成、1日〜月末までループ
         for (int i = 0; i < dayOfMonthMaximum; i++) {
-            String day = String.format("%1$02d", i+1);
+            String day = String.format("%1$02d", i + 1);
             MyRecord record = new MyRecord();
 
             // Cursorが空の場合、recordに日付のみ格納する
@@ -102,9 +105,9 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                 record.setArrival("");
                 record.setLeaving("");
                 record.setDate(year + "/" + month + "/" + day);
-//                Log.d(null, "day = " + day);
+                // Log.d(null, "day = " + day);
             } else {
-//                Log.d("", "day = " + day + " , _id = " + cursor.getInt(0));
+                // Log.d("", "day = " + day + " , _id = " + cursor.getInt(0));
                 String dateString = cursor.getString(cursor.getColumnIndex(MyRecord.DATE));
                 if (dateString.substring(8).compareTo(day) == 0) {
                     // 当該日と、Cursorで指している日が同一であれば、recordに値を格納してCursorを進める
@@ -134,55 +137,49 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         db.close();
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.button1:
-            calendar.add(Calendar.MONTH, -1);
-            updateView();
-            break;
-        case R.id.button2:
-            calendar.add(Calendar.MONTH, +1);
-            updateView();
-            break;
-        case R.id.button3:
-            break;
-        case R.id.button4:
-            break;
-        default:
-            break;
+            case R.id.button1:
+                calendar.add(Calendar.MONTH, -1);
+                updateView();
+                break;
+            case R.id.button2:
+                calendar.add(Calendar.MONTH, +1);
+                updateView();
+                break;
+            case R.id.button3:
+                break;
+            case R.id.button4:
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
         }
 
     }
-
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 
     @Override
     protected void onPause() {
         super.onPause();
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
         updateView();
-   }
+        listView.invalidateViews();
+    }
 
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Setting" >
+
+        <CheckBoxPreference
+            android:key="checkbox_value"
+            android:summary="sample of checkbox setting"
+            android:title="Setting1" />
+
+        <ListPreference
+            android:entries="@array/list_entries"
+            android:entryValues="@array/list_entryvalues"
+            android:key="list_value"
+            android:summary="sample of list setting"
+            android:title="Setting3" />
+
+        <com.niyaty.leavingrecord.TimePickerPreference
+            android:key="@string/settingsArrivalPreference"
+            android:title="出社時刻"
+            android:defaultValue="09:00" />
+
+        <com.niyaty.leavingrecord.TimePickerPreference
+            android:key="@string/settingsLeavingPreference"
+            android:title="退社時刻"
+            android:defaultValue="18:00" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

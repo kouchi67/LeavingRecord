@@ -3,5 +3,7 @@
 
     <string name="hello">Hello World, TopViewActivity!</string>
     <string name="app_name">LeavingRecord</string>
+    <string name="settingsArrivalPreference">settingsArrivalPreference</string>
+    <string name="settingsLeavingPreference">settingsLeavingPreference</string>
 
 </resources>

@@ -1,3 +1,4 @@
+
 package com.niyaty.leavingrecord;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ public class MyRecord implements Serializable {
     final static public String REST_TIME = "rest_time";
     final static public String DATE = "date";
     final static public String REMARKS = "remarks";
-    final static public String HOLIDAY  = "holiday";
+    final static public String HOLIDAY = "holiday";
 
     private int id;
     private String arrival;
@@ -51,6 +52,7 @@ public class MyRecord implements Serializable {
 
     /**
      * idを取得します。
+     * 
      * @return id
      */
     public int getId() {
@@ -59,6 +61,7 @@ public class MyRecord implements Serializable {
 
     /**
      * idを設定します。
+     * 
      * @param id id
      */
     public void setId(int id) {
@@ -67,6 +70,7 @@ public class MyRecord implements Serializable {
 
     /**
      * arrivalを取得します。
+     * 
      * @return arrival
      */
     public String getArrival() {
@@ -75,6 +79,7 @@ public class MyRecord implements Serializable {
 
     /**
      * arrivalを設定します。
+     * 
      * @param arrival arrival
      */
     public void setArrival(String arrival) {
@@ -83,6 +88,7 @@ public class MyRecord implements Serializable {
 
     /**
      * leavingを取得します。
+     * 
      * @return leaving
      */
     public String getLeaving() {
@@ -91,6 +97,7 @@ public class MyRecord implements Serializable {
 
     /**
      * leavingを設定します。
+     * 
      * @param leaving leaving
      */
     public void setLeaving(String leaving) {
@@ -99,6 +106,7 @@ public class MyRecord implements Serializable {
 
     /**
      * restTimeを取得します。
+     * 
      * @return restTime
      */
     public String getRestTime() {
@@ -107,6 +115,7 @@ public class MyRecord implements Serializable {
 
     /**
      * restTimeを設定します。
+     * 
      * @param restTime restTime
      */
     public void setRestTime(String restTime) {
@@ -115,6 +124,7 @@ public class MyRecord implements Serializable {
 
     /**
      * dateを取得します。
+     * 
      * @return date
      */
     public String getDate() {
@@ -123,6 +133,7 @@ public class MyRecord implements Serializable {
 
     /**
      * dateを設定します。
+     * 
      * @param date date
      */
     public void setDate(String date) {
@@ -131,6 +142,7 @@ public class MyRecord implements Serializable {
 
     /**
      * remarksを取得します。
+     * 
      * @return remarks
      */
     public String getRemarks() {
@@ -139,6 +151,7 @@ public class MyRecord implements Serializable {
 
     /**
      * remarksを設定します。
+     * 
      * @param remarks remarks
      */
     public void setRemarks(String remarks) {
@@ -147,6 +160,7 @@ public class MyRecord implements Serializable {
 
     /**
      * holidayを取得します。
+     * 
      * @return holiday
      */
     public int getHoliday() {
@@ -155,6 +169,7 @@ public class MyRecord implements Serializable {
 
     /**
      * holidayを設定します。
+     * 
      * @param holiday holiday
      */
     public void setHoliday(int holiday) {
