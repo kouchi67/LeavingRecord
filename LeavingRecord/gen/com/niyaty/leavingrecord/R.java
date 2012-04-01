@@ -8,10 +8,6 @@
 package com.niyaty.leavingrecord;
 
 public final class R {
-    public static final class array {
-        public static final int list_entries=0x7f0b0000;
-        public static final int list_entryvalues=0x7f0b0001;
-    }
     public static final class attr {
         /**  Whether or not the indicators should be centered. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -302,13 +298,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpi__tab_unselected_pressed_holo=0x7f020007;
     }
     public static final class id {
-        public static final int button1=0x7f050010;
-        public static final int button2=0x7f050011;
-        public static final int button3=0x7f050012;
-        public static final int button4=0x7f050013;
         public static final int calendarListView=0x7f05000e;
+        public static final int calendarListViewAggregateButton=0x7f050012;
         public static final int calendarListViewDateLabel=0x7f05000c;
         public static final int calendarListViewFooter=0x7f05000f;
+        public static final int calendarListViewLastMonthButton=0x7f050010;
+        public static final int calendarListViewNextMonthButton=0x7f050011;
+        public static final int calendarListViewSettingsButton=0x7f050013;
         public static final int horizontal=0x7f050000;
         public static final int inputViewArrivalButton=0x7f050018;
         public static final int inputViewArrivalLabel=0x7f050017;
@@ -334,8 +330,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int recordCellDayLabel=0x7f050007;
         public static final int recordCellRemarksLabel=0x7f05000b;
         public static final int recordCellTimeLabel=0x7f050009;
-        public static final int timePicker1=0x7f050023;
-        public static final int timePickerDialog=0x7f050024;
+        public static final int timePickerDialog=0x7f050023;
         public static final int triangle=0x7f050003;
         public static final int underline=0x7f050004;
         public static final int vertical=0x7f050001;
@@ -349,15 +344,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int calendar_list_cell_view=0x7f030001;
         public static final int calendar_list_view=0x7f030002;
         public static final int record_input_view=0x7f030003;
-        public static final int record_input_view_alert_dialog=0x7f030004;
-        public static final int timepicker_dialog=0x7f030005;
-        public static final int vpi__tab=0x7f030006;
+        public static final int timepicker_dialog=0x7f030004;
+        public static final int vpi__tab=0x7f030005;
     }
     public static final class string {
-        public static final int app_name=0x7f0c0001;
-        public static final int hello=0x7f0c0000;
-        public static final int settingsArrivalPreference=0x7f0c0002;
-        public static final int settingsLeavingPreference=0x7f0c0003;
+        public static final int app_name=0x7f0b0000;
+        public static final int settingsArrivalPreference=0x7f0b0001;
+        public static final int settingsLeavingPreference=0x7f0b0002;
+        public static final int settingsRestTimePreference=0x7f0b0003;
     }
     public static final class style {
         public static final int TextAppearance_TabPageIndicator=0x7f0a0006;

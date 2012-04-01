@@ -2,18 +2,15 @@
 package com.niyaty.leavingrecord;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -62,10 +59,15 @@ public class InputViewActivity extends Activity implements OnClickListener {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             String arrivalKey = getString(R.string.settingsArrivalPreference);
             String leavingKey = getString(R.string.settingsLeavingPreference);
+            String resttimeKey = getString(R.string.settingsRestTimePreference);
+
             String arrival = preferences.getString(arrivalKey, "09:00");
             String leaving = preferences.getString(leavingKey, "18:00");
+            String resttime = preferences.getString(resttimeKey, "01:00");
+
             arrivalButton.setText(arrival);
             leavingButton.setText(leaving);
+            restTimeButton.setText(resttime);
         }
 
     }

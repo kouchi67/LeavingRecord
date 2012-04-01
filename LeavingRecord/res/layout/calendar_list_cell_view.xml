@@ -15,7 +15,7 @@
             android:layout_height="fill_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical" >
 
             <TextView
                 android:id="@+id/recordCellDayLabel"
@@ -23,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:text="00 day"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -39,15 +38,17 @@
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutCell3"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="6" android:layout_marginRight="10dp" android:layout_marginBottom="7dp" android:layout_marginTop="7dp">
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_weight="6"
+            android:gravity="center_vertical" >
 
             <TextView
                 android:id="@+id/recordCellRemarksLabel"
@@ -55,9 +56,7 @@
                 android:layout_height="fill_parent"
                 android:text="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>

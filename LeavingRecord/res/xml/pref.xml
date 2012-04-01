@@ -8,23 +8,20 @@
             android:summary="sample of checkbox setting"
             android:title="Setting1" />
 
-        <ListPreference
-            android:entries="@array/list_entries"
-            android:entryValues="@array/list_entryvalues"
-            android:key="list_value"
-            android:summary="sample of list setting"
-            android:title="Setting3" />
-
         <com.niyaty.leavingrecord.TimePickerPreference
+            android:defaultValue="09:00"
             android:key="@string/settingsArrivalPreference"
-            android:title="出社時刻"
-            android:defaultValue="09:00" />
+            android:title="出社時刻" />
 
         <com.niyaty.leavingrecord.TimePickerPreference
+            android:defaultValue="18:00"
             android:key="@string/settingsLeavingPreference"
-            android:title="退社時刻"
-            android:defaultValue="18:00" />
+            android:title="退社時刻" />
 
+        <com.niyaty.leavingrecord.TimePickerPreference
+            android:defaultValue="01:00"
+            android:key="@string/settingsRestTimePreference"
+            android:title="休憩時間" />
     </PreferenceCategory>
 
 </PreferenceScreen>

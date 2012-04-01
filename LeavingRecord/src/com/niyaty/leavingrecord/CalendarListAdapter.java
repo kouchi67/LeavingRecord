@@ -3,10 +3,7 @@ package com.niyaty.leavingrecord;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 
-import android.R.bool;
-import android.R.integer;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;

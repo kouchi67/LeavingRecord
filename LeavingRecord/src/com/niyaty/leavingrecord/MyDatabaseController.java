@@ -1,9 +1,6 @@
 
 package com.niyaty.leavingrecord;
 
-import java.util.ArrayList;
-
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -74,6 +71,14 @@ public class MyDatabaseController {
                         MyRecord.REMARKS + " = '" + record.getRemarks() + "', " +
                         MyRecord.HOLIDAY + " = " + record.getHoliday() + " " +
                         "where " + MyRecord.ID + " = " + record.getId() + ";";
+        Log.d(null, sql);
+        db.execSQL(sql);
+    }
+
+    public void deleteRecord(MyRecord record) {
+        String sql =
+                "delete from " + MyRecord.TABLE_NAME + " where " +
+                        MyRecord.ID + " = " + record.getId() + ";";
         Log.d(null, sql);
         db.execSQL(sql);
     }

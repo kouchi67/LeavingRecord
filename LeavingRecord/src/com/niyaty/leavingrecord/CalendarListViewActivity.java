@@ -5,21 +5,31 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class CalendarListViewActivity extends Activity implements OnClickListener {
+public class CalendarListViewActivity extends Activity implements OnClickListener,
+        android.content.DialogInterface.OnClickListener {
+
+    int CONTEXT_MENU_1 = 0;
+    int CONTEXT_MENU_2 = 1;
+    int CONTEXT_MENU_3 = 2;
 
     private Context context;
     private Calendar calendar = Calendar.getInstance();
@@ -29,6 +39,10 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
     private ListView listView;
     private TextView dateLabel;
+
+    // 休日設定のdialog用
+    private EditText dialogEditText;
+    private MyRecord dialogRecord;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,19 +62,27 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                registerForContextMenu(listView);
+                return false;
+            }
+        });
+
         dateLabel = (TextView) findViewById(R.id.calendarListViewDateLabel);
 
-        Button lastMonthButton = (Button) findViewById(R.id.button1);
+        Button lastMonthButton = (Button) findViewById(R.id.calendarListViewLastMonthButton);
         lastMonthButton.setOnClickListener(this);
 
-        Button nextMonthButton = (Button) findViewById(R.id.button2);
+        Button nextMonthButton = (Button) findViewById(R.id.calendarListViewNextMonthButton);
         nextMonthButton.setOnClickListener(this);
 
-        Button button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(this);
+        Button aggregateButton = (Button) findViewById(R.id.calendarListViewAggregateButton);
+        aggregateButton.setOnClickListener(this);
 
-        Button button4 = (Button) findViewById(R.id.button4);
-        button4.setOnClickListener(this);
+        Button settingsButton = (Button) findViewById(R.id.calendarListViewSettingsButton);
+        settingsButton.setOnClickListener(this);
     }
 
     private void updateView() {
@@ -69,14 +91,10 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         dateLabel.setText(year + " 年 " + month + " 月 ");
 
         updateMyRecords();
-        if (calendarAdapter == null) {
-            calendarAdapter = new CalendarListAdapter(context, R.layout.calendar_list_cell_view, records);
-            listView.setAdapter(calendarAdapter);
-        } else {
-            calendarAdapter.setRecords(records);
-            calendarAdapter.notifyDataSetChanged();
-        }
 
+        calendarAdapter = new CalendarListAdapter(context, R.layout.calendar_list_cell_view,
+                records);
+        listView.setAdapter(calendarAdapter);
     }
 
     private void updateMyRecords() {
@@ -138,31 +156,58 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button1:
-                calendar.add(Calendar.MONTH, -1);
-                updateView();
-                break;
-            case R.id.button2:
-                calendar.add(Calendar.MONTH, +1);
-                updateView();
-                break;
-            case R.id.button3:
-                break;
-            case R.id.button4:
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
+        int position = adapterInfo.position;
+
+        // Menu.add(int groupId, int itemId, int order, CharSequence title)
+        menu.add(0, CONTEXT_MENU_1, 0, "勤怠を入力する");
+        menu.add(0, CONTEXT_MENU_2, 0, "休日に設定する");
+
+        if (records.get(position).isNull() == false) {
+            menu.add(0, CONTEXT_MENU_3, 0, "入力内容を削除");
+        }
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.d(null, item.getItemId() + " ---- " + item.getTitle());
+        AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+        MyRecord record = records.get(menuInfo.position);
+
+        // ContextMenuの上から順に id=0, id=1, id=2
+        switch (item.getItemId()) {
+            case 0: // 「勤怠を入力する」タップ
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(intent);
+                break;
+            case 1: // 「休日に設定する」タップ
+                dialogEditText = new EditText(this);
+
+                dialogRecord = record;
+                dialogRecord.setHoliday(1);
+
+                final AlertDialog alertDialog = new AlertDialog.Builder(this)
+                        .setTitle("備考")
+                        .setView(dialogEditText)
+                        .setPositiveButton("OK", this)
+                        .setNegativeButton("キャンセル", this)
+                        .create();
+                alertDialog.show();
+                break;
+            case 2: // 「入力内容を削除」タップ
+                MyDatabaseController db = new MyDatabaseController(getApplicationContext());
+                db.setWritable();
+                db.deleteRecord(record);
+                db.close();
+                updateView();
                 break;
             default:
                 break;
         }
 
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -179,7 +224,55 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     protected void onResume() {
         super.onResume();
         updateView();
-        listView.invalidateViews();
+    }
+
+    // ---- OnClickListener ----
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.calendarListViewLastMonthButton:
+                calendar.add(Calendar.MONTH, -1);
+                updateView();
+                break;
+            case R.id.calendarListViewNextMonthButton:
+                calendar.add(Calendar.MONTH, +1);
+                updateView();
+                break;
+            case R.id.calendarListViewAggregateButton:
+                break;
+            case R.id.calendarListViewSettingsButton:
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                Log.d(null, "DialogInterface.OnClickListener");
+                break;
+        }
+
+    }
+
+    // ---- DialogInterface.OnClickListener ----
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                MyDatabaseController db = new MyDatabaseController(getApplicationContext());
+                db.setWritable();
+                if (dialogRecord.getId() == 0) {
+                    db.insertRecord(dialogRecord);
+                } else {
+                    db.updateRecord(dialogRecord);
+                }
+                db.close();
+                break;
+            case DialogInterface.BUTTON_NEGATIVE:
+                Log.d(null, "called onClick ---- NEGATIVE BUTTON");
+                dialogEditText = null;
+                dialogRecord = null;
+                break;
+            default:
+                break;
+        }
     }
 
 }
