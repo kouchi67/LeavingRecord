@@ -55,8 +55,7 @@ public class MyDatabaseController {
                         " '" + record.getLeaving() + "' , " +
                         " '" + record.getRestTime() + "' , " +
                         " '" + record.getRemarks() + "' , " +
-                        " 0 " +
-                        ") ;";
+                        record.getHoliday() + " ) ;";
         Log.d(null, sql);
         db.execSQL(sql);
     }

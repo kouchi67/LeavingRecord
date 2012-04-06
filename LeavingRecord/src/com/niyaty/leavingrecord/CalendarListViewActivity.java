@@ -122,6 +122,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
             if (isNullForCursor) {
                 record.setArrival("");
                 record.setLeaving("");
+                record.setRestTime("");
                 record.setDate(year + "/" + month + "/" + day);
                 // Log.d(null, "day = " + day);
             } else {
@@ -135,6 +136,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                     record.setLeaving(cursor.getString(cursor.getColumnIndex(MyRecord.LEAVING)));
                     record.setRestTime(cursor.getString(cursor.getColumnIndex(MyRecord.REST_TIME)));
                     record.setRemarks(cursor.getString(cursor.getColumnIndex(MyRecord.REMARKS)));
+                    record.setHoliday(cursor.getInt(cursor.getColumnIndex(MyRecord.HOLIDAY)));
 
                     if (cursor.moveToNext()) {
                         isNullForCursor = false;
@@ -184,10 +186,8 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                 break;
             case 1: // 「休日に設定する」タップ
                 dialogEditText = new EditText(this);
-
+                dialogEditText.setHint("有給休暇 etc ...");
                 dialogRecord = record;
-                dialogRecord.setHoliday(1);
-
                 final AlertDialog alertDialog = new AlertDialog.Builder(this)
                         .setTitle("備考")
                         .setView(dialogEditText)
@@ -252,10 +252,17 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     }
 
     // ---- DialogInterface.OnClickListener ----
+    // 休日設定時のダイアログ処理
     @Override
     public void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
+                dialogRecord.setArrival("");
+                dialogRecord.setLeaving("");
+                dialogRecord.setRestTime("");
+                dialogRecord.setHoliday(1);
+                dialogRecord.setRemarks(dialogEditText.getText().toString());
+
                 MyDatabaseController db = new MyDatabaseController(getApplicationContext());
                 db.setWritable();
                 if (dialogRecord.getId() == 0) {
@@ -264,6 +271,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                     db.updateRecord(dialogRecord);
                 }
                 db.close();
+                updateView();
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 Log.d(null, "called onClick ---- NEGATIVE BUTTON");

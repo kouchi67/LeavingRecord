@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="Setting" >
+    <com.niyaty.leavingrecord.TimePickerPreference
+        android:defaultValue="09:00"
+        android:key="@string/settingsArrivalPreference"
+        android:summary="デフォルトの出社時刻"
+        android:title="出社時刻" />
 
-        <CheckBoxPreference
-            android:key="checkbox_value"
-            android:summary="sample of checkbox setting"
-            android:title="Setting1" />
+    <com.niyaty.leavingrecord.TimePickerPreference
+        android:defaultValue="18:00"
+        android:key="@string/settingsLeavingPreference"
+        android:summary="デフォルトの退社時刻"
+        android:title="退社時刻" />
 
-        <com.niyaty.leavingrecord.TimePickerPreference
-            android:defaultValue="09:00"
-            android:key="@string/settingsArrivalPreference"
-            android:title="出社時刻" />
-
-        <com.niyaty.leavingrecord.TimePickerPreference
-            android:defaultValue="18:00"
-            android:key="@string/settingsLeavingPreference"
-            android:title="退社時刻" />
-
-        <com.niyaty.leavingrecord.TimePickerPreference
-            android:defaultValue="01:00"
-            android:key="@string/settingsRestTimePreference"
-            android:title="休憩時間" />
-    </PreferenceCategory>
+    <com.niyaty.leavingrecord.TimePickerPreference
+        android:defaultValue="01:00"
+        android:key="@string/settingsRestTimePreference"
+        android:summary="デフォルトの休憩時間"
+        android:title="休憩時間" />
 
 </PreferenceScreen>

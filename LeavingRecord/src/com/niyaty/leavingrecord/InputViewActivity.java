@@ -50,12 +50,7 @@ public class InputViewActivity extends Activity implements OnClickListener {
         dateLabel.setText(record.getDate());
         // dateButton.setText(record.getDate());
 
-        if (record.isNull() == false) {
-            arrivalButton.setText(record.getArrival());
-            leavingButton.setText(record.getLeaving());
-            restTimeButton.setText(record.getRestTime());
-            remarksEditText.setText(record.getRemarks());
-        } else {
+        if (record.isNull() || record.getHoliday() == 1) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             String arrivalKey = getString(R.string.settingsArrivalPreference);
             String leavingKey = getString(R.string.settingsLeavingPreference);
@@ -68,6 +63,12 @@ public class InputViewActivity extends Activity implements OnClickListener {
             arrivalButton.setText(arrival);
             leavingButton.setText(leaving);
             restTimeButton.setText(resttime);
+            remarksEditText.setText(record.getRemarks());
+        } else {
+            arrivalButton.setText(record.getArrival());
+            leavingButton.setText(record.getLeaving());
+            restTimeButton.setText(record.getRestTime());
+            remarksEditText.setText(record.getRemarks());
         }
 
     }

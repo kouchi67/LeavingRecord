@@ -340,12 +340,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int default_title_indicator_footer_indicator_style=0x7f080001;
     }
     public static final class layout {
-        public static final int aggregate_view=0x7f030000;
-        public static final int calendar_list_cell_view=0x7f030001;
-        public static final int calendar_list_view=0x7f030002;
-        public static final int record_input_view=0x7f030003;
-        public static final int timepicker_dialog=0x7f030004;
-        public static final int vpi__tab=0x7f030005;
+        public static final int calendar_list_cell_view=0x7f030000;
+        public static final int calendar_list_view=0x7f030001;
+        public static final int record_input_view=0x7f030002;
+        public static final int timepicker_dialog=0x7f030003;
+        public static final int vpi__tab=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f0b0000;

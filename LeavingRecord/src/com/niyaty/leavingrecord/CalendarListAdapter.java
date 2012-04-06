@@ -64,7 +64,11 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         String dateString = records.get(position).getDate();
         String recordDay = dateString.substring(8);
         holder.day.setText(recordDay + " 日");
-        holder.time.setText(record.getArrival() + " - " + record.getLeaving());
+        if (record.getHoliday() == 0) {
+            holder.time.setText(record.getArrival() + " - " + record.getLeaving());
+        } else {
+            holder.time.setText("休日");
+        }
         holder.remarks.setText(record.getRemarks());
 
         int year = Integer.parseInt(dateString.substring(0, 4));
