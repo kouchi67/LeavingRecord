@@ -57,8 +57,8 @@ public class TimePickerPreference extends DialogPreference {
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        Log.d(null, "onGetDefaultValue");
-        Log.d(null, "a.getText >>>> " + (String) a.getText(index));
+//        Log.d(null, "onGetDefaultValue");
+//        Log.d(null, "a.getText >>>> " + (String) a.getText(index));
         preferenceValue = (String) a.getText(index);
         return super.onGetDefaultValue(a, index);
     }

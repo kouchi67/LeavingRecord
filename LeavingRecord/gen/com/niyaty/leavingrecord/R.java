@@ -298,13 +298,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpi__tab_unselected_pressed_holo=0x7f020007;
     }
     public static final class id {
-        public static final int calendarListView=0x7f05000e;
-        public static final int calendarListViewAggregateButton=0x7f050012;
-        public static final int calendarListViewDateLabel=0x7f05000c;
-        public static final int calendarListViewFooter=0x7f05000f;
-        public static final int calendarListViewLastMonthButton=0x7f050010;
-        public static final int calendarListViewNextMonthButton=0x7f050011;
-        public static final int calendarListViewSettingsButton=0x7f050013;
+        public static final int calendarListView=0x7f05000d;
+        public static final int calendarListViewAggregateButton=0x7f050011;
+        public static final int calendarListViewFooter=0x7f05000e;
+        public static final int calendarListViewLastMonthButton=0x7f05000f;
+        public static final int calendarListViewNextMonthButton=0x7f050010;
+        public static final int calendarListViewSettingsButton=0x7f050012;
         public static final int horizontal=0x7f050000;
         public static final int inputViewArrivalButton=0x7f050018;
         public static final int inputViewArrivalLabel=0x7f050017;
@@ -321,7 +320,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int inputViewRemarksLabel=0x7f050020;
         public static final int inputViewRestLabel=0x7f05001d;
         public static final int inputViewRestTimeButton=0x7f05001e;
-        public static final int linearLayout1=0x7f05000d;
+        public static final int linearLayout1=0x7f05000c;
         public static final int linearLayoutCell=0x7f050005;
         public static final int linearLayoutCell1=0x7f050006;
         public static final int linearLayoutCell2=0x7f050008;
@@ -331,6 +330,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int recordCellRemarksLabel=0x7f05000b;
         public static final int recordCellTimeLabel=0x7f050009;
         public static final int timePickerDialog=0x7f050023;
+        public static final int titleBar_title=0x7f050013;
         public static final int triangle=0x7f050003;
         public static final int underline=0x7f050004;
         public static final int vertical=0x7f050001;
@@ -342,9 +342,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class layout {
         public static final int calendar_list_cell_view=0x7f030000;
         public static final int calendar_list_view=0x7f030001;
-        public static final int record_input_view=0x7f030002;
-        public static final int timepicker_dialog=0x7f030003;
-        public static final int vpi__tab=0x7f030004;
+        public static final int custom_titlebar=0x7f030002;
+        public static final int record_input_view=0x7f030003;
+        public static final int timepicker_dialog=0x7f030004;
+        public static final int vpi__tab=0x7f030005;
     }
     public static final class string {
         public static final int app_name=0x7f0b0000;

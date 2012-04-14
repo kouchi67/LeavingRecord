@@ -17,6 +17,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +48,13 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+
         setContentView(R.layout.calendar_list_view);
+
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_titlebar);
+        dateLabel = (TextView) findViewById(R.id.titleBar_title);
 
         context = getApplicationContext();
 
@@ -69,8 +76,6 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                 return false;
             }
         });
-
-        dateLabel = (TextView) findViewById(R.id.calendarListViewDateLabel);
 
         Button lastMonthButton = (Button) findViewById(R.id.calendarListViewLastMonthButton);
         lastMonthButton.setOnClickListener(this);
