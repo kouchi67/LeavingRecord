@@ -4,19 +4,16 @@
     <com.niyaty.leavingrecord.TimePickerPreference
         android:defaultValue="09:00"
         android:key="@string/settingsArrivalPreference"
-        android:summary="デフォルトの出社時刻"
-        android:title="出社時刻" />
+        android:title="デフォルト出社時刻" />
 
     <com.niyaty.leavingrecord.TimePickerPreference
         android:defaultValue="18:00"
         android:key="@string/settingsLeavingPreference"
-        android:summary="デフォルトの退社時刻"
-        android:title="退社時刻" />
+        android:title="デフォルト退社時刻" />
 
     <com.niyaty.leavingrecord.TimePickerPreference
         android:defaultValue="01:00"
         android:key="@string/settingsRestTimePreference"
-        android:summary="デフォルトの休憩時間"
-        android:title="休憩時間" />
+        android:title="デフォルト休憩時間" />
 
 </PreferenceScreen>

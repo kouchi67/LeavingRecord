@@ -7,14 +7,13 @@
     <LinearLayout
         android:id="@+id/linearLayoutCell"
         android:layout_width="fill_parent"
-        android:layout_height="50dp" >
+        android:layout_height="48dp" >
 
         <LinearLayout
             android:id="@+id/linearLayoutCell1"
             android:layout_width="70dp"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_margin="8dp"
             android:gravity="center_vertical" >
 
             <TextView
@@ -29,6 +28,7 @@
             android:id="@+id/linearLayoutCell2"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_margin="8dp"
             android:layout_weight="5"
             android:gravity="center|center_vertical" >
 
@@ -44,9 +44,7 @@
             android:id="@+id/linearLayoutCell3"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="7dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="7dp"
+            android:layout_margin="8dp"
             android:layout_weight="6"
             android:gravity="center_vertical" >
 

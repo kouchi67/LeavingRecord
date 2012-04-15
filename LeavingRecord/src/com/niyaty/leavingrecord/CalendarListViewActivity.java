@@ -83,9 +83,6 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         Button nextMonthButton = (Button) findViewById(R.id.calendarListViewNextMonthButton);
         nextMonthButton.setOnClickListener(this);
 
-        Button aggregateButton = (Button) findViewById(R.id.calendarListViewAggregateButton);
-        aggregateButton.setOnClickListener(this);
-
         Button settingsButton = (Button) findViewById(R.id.calendarListViewSettingsButton);
         settingsButton.setOnClickListener(this);
     }
@@ -242,8 +239,6 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
             case R.id.calendarListViewNextMonthButton:
                 calendar.add(Calendar.MONTH, +1);
                 updateView();
-                break;
-            case R.id.calendarListViewAggregateButton:
                 break;
             case R.id.calendarListViewSettingsButton:
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);

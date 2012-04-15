@@ -13,17 +13,17 @@ public class SettingsActivity extends PreferenceActivity {
     Preference leavingPreference;
     Preference resttimePreference;
 
-    public String ARRIVAL_KEY = "settingsArrivalPreference";
-    public String LEAVING_KEY = "settingsLeavingPreference";
-    public String RESTTIME_KEY = "settingsRestTimePreference";
+    public static final String ARRIVAL_KEY = "settingsArrivalPreference";
+    public static final String LEAVING_KEY = "settingsLeavingPreference";
+    public static final String RESTTIME_KEY = "settingsRestTimePreference";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref);
-        
+
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        
+
         arrivalPreference = findPreference(ARRIVAL_KEY);
         arrivalPreference.setSummary(pref.getString(ARRIVAL_KEY, "09:00"));
         leavingPreference = findPreference(LEAVING_KEY);

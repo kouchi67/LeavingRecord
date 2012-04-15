@@ -40,13 +40,6 @@
             android:text="翌月" />
 
         <Button
-            android:id="@+id/calendarListViewAggregateButton"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="集計" />
-
-        <Button
             android:id="@+id/calendarListViewSettingsButton"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
