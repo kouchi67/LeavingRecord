@@ -11,9 +11,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,15 +51,14 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-
         setContentView(R.layout.calendar_list_view);
-
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_titlebar);
-        dateLabel = (TextView) findViewById(R.id.titleBar_title);
-
         context = getApplicationContext();
+
+        TextView title = (TextView) findViewById(R.id.titleBar_title);
+        title.setText("勤怠一覧");
+        dateLabel = (TextView) findViewById(R.id.calendarListViewDateLabel);
 
         db = new MyDatabaseController(context);
         listView = (ListView) findViewById(R.id.calendarListView);
@@ -82,9 +84,6 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
         Button nextMonthButton = (Button) findViewById(R.id.calendarListViewNextMonthButton);
         nextMonthButton.setOnClickListener(this);
-
-        Button settingsButton = (Button) findViewById(R.id.calendarListViewSettingsButton);
-        settingsButton.setOnClickListener(this);
     }
 
     private void updateView() {
@@ -189,6 +188,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
             case 1: // 「休日に設定する」タップ
                 dialogEditText = new EditText(this);
                 dialogEditText.setHint("有給休暇 etc ...");
+                dialogEditText.setInputType(InputType.TYPE_CLASS_TEXT);
                 dialogRecord = record;
                 final AlertDialog alertDialog = new AlertDialog.Builder(this)
                         .setTitle("備考")
@@ -228,6 +228,26 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         updateView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu1:
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+            }
+        return super.onOptionsItemSelected(item);
+    }
+
     // ---- OnClickListener ----
     @Override
     public void onClick(View v) {
@@ -240,12 +260,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                 calendar.add(Calendar.MONTH, +1);
                 updateView();
                 break;
-            case R.id.calendarListViewSettingsButton:
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);
-                break;
             default:
-                Log.d(null, "DialogInterface.OnClickListener");
                 break;
         }
 

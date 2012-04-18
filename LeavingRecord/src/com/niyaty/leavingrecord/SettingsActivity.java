@@ -20,9 +20,11 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         addPreferencesFromResource(R.xml.pref);
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
 
         arrivalPreference = findPreference(ARRIVAL_KEY);
         arrivalPreference.setSummary(pref.getString(ARRIVAL_KEY, "09:00"));
@@ -35,19 +37,21 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(listener);
+        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(
+                listener);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(listener);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(
+                listener);
     }
 
     private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if(key.equals(ARRIVAL_KEY)) {
+            if (key.equals(ARRIVAL_KEY)) {
                 arrivalPreference.setSummary(sharedPreferences.getString(ARRIVAL_KEY, ""));
             } else if (key.equals(LEAVING_KEY)) {
                 leavingPreference.setSummary(sharedPreferences.getString(LEAVING_KEY, ""));

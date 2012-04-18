@@ -21,12 +21,12 @@
         </activity>
 
         <activity
-            android:label="inputView"
+            android:label="時刻入力"
             android:name=".InputViewActivity">
         </activity>
 
         <activity
-            android:label="settingsView"
+            android:label="設定"
             android:name=".SettingsActivity">
         </activity>
 

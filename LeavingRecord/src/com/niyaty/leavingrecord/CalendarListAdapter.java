@@ -63,7 +63,7 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         MyRecord record = records.get(position);
         String dateString = records.get(position).getDate();
         String recordDay = dateString.substring(8);
-        holder.day.setText(recordDay + " 日");
+//        holder.day.setText(recordDay + " 日");
         if (record.getHoliday() == 0) {
             holder.time.setText(record.getArrival() + " - " + record.getLeaving());
         } else {
@@ -75,6 +75,34 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
         int month = Integer.parseInt(dateString.substring(5, 7));
         int day = Integer.parseInt(recordDay);
         calendar.set(year, month - 1, day);
+
+        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+            case Calendar.SUNDAY:
+                holder.day.setText(recordDay + " (日)");
+                break;
+            case Calendar.MONDAY:
+                holder.day.setText(recordDay + " (月)");
+                break;
+            case Calendar.TUESDAY:
+                holder.day.setText(recordDay + " (火)");
+                break;
+            case Calendar.WEDNESDAY:
+                holder.day.setText(recordDay + " (水)");
+                break;
+            case Calendar.THURSDAY:
+                holder.day.setText(recordDay + " (木)");
+                break;
+            case Calendar.FRIDAY:
+                holder.day.setText(recordDay + " (金)");
+                break;
+            case Calendar.SATURDAY:
+                holder.day.setText(recordDay + " (土)");
+                break;
+            default:
+                holder.day.setText(recordDay + " 日");
+                break;
+        }
+
         if (isNationalHoliday()) {
             holder.cell.setBackgroundColor(Color.rgb(220, 96, 96));
         } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
@@ -85,7 +113,7 @@ public class CalendarListAdapter extends ArrayAdapter<MyRecord> {
             if (position % 2 == 0) {
                 holder.cell.setBackgroundColor(Color.rgb(99, 99, 99));
             } else {
-                holder.cell.setBackgroundColor(Color.rgb(66, 66, 66));
+                holder.cell.setBackgroundColor(Color.rgb(88, 88, 88));
             }
         }
 

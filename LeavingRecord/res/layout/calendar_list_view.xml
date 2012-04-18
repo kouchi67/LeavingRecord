@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
+    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -22,29 +22,38 @@
     <LinearLayout
         android:id="@+id/calendarListViewFooter"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp" >
 
         <Button
             android:id="@+id/calendarListViewLastMonthButton"
+            android:layout_width="56dp"
+            android:layout_height="fill_parent"
+            android:text="＜＜" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="先月" />
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/calendarListViewDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dateLavel"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/calendarListViewNextMonthButton"
-            android:layout_width="fill_parent"
+            android:layout_width="56dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="翌月" />
+            android:text="＞＞" />
 
-        <Button
-            android:id="@+id/calendarListViewSettingsButton"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="設定" />
     </LinearLayout>
 
 </LinearLayout>

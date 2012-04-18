@@ -2,8 +2,5 @@
 <resources>
     <style name="MyTheme" parent="android:Theme">
         <item name="android:windowTitleSize">32dp</item>
-
     </style>
-
-
 </resources>
