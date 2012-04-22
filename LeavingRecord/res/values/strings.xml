@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">勤怠メモ</string>
+    <string name="app_name">シンプル勤怠メモ</string>
     <string name="settingsArrivalPreference">settingsArrivalPreference</string>
     <string name="settingsLeavingPreference">settingsLeavingPreference</string>
     <string name="settingsRestTimePreference">settingsRestTimePreference</string>

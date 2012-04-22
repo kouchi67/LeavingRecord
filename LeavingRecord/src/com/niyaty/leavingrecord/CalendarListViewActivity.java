@@ -84,6 +84,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
         Button nextMonthButton = (Button) findViewById(R.id.calendarListViewNextMonthButton);
         nextMonthButton.setOnClickListener(this);
+
     }
 
     private void updateView() {
@@ -93,9 +94,14 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
         updateMyRecords();
 
-        calendarAdapter = new CalendarListAdapter(context, R.layout.calendar_list_cell_view,
-                records);
-        listView.setAdapter(calendarAdapter);
+        if (calendarAdapter == null) {
+            calendarAdapter = new CalendarListAdapter(context, R.layout.calendar_list_cell_view, records);
+            listView.setAdapter(calendarAdapter);
+        } else {
+            calendarAdapter.setRecords(records);
+            calendarAdapter.notifyDataSetChanged();
+        }
+
     }
 
     private void updateMyRecords() {
@@ -125,9 +131,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                 record.setLeaving("");
                 record.setRestTime("");
                 record.setDate(year + "/" + month + "/" + day);
-                // Log.d(null, "day = " + day);
             } else {
-                // Log.d("", "day = " + day + " , _id = " + cursor.getInt(0));
                 String dateString = cursor.getString(cursor.getColumnIndex(MyRecord.DATE));
                 if (dateString.substring(8).compareTo(day) == 0) {
                     // 当該日と、Cursorで指している日が同一であれば、recordに値を格納してCursorを進める
@@ -175,14 +179,13 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        Log.d(null, item.getItemId() + " ---- " + item.getTitle());
         AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
         MyRecord record = records.get(menuInfo.position);
 
         // ContextMenuの上から順に id=0, id=1, id=2
         switch (item.getItemId()) {
             case 0: // 「勤怠を入力する」タップ
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InputViewActivity.class);
                 startActivity(intent);
                 break;
             case 1: // 「休日に設定する」タップ
@@ -229,6 +232,11 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
@@ -253,10 +261,12 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.calendarListViewLastMonthButton:
+                calendarAdapter = null;
                 calendar.add(Calendar.MONTH, -1);
                 updateView();
                 break;
             case R.id.calendarListViewNextMonthButton:
+                calendarAdapter = null;
                 calendar.add(Calendar.MONTH, +1);
                 updateView();
                 break;
@@ -289,7 +299,6 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
                 updateView();
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
-                Log.d(null, "called onClick ---- NEGATIVE BUTTON");
                 dialogEditText = null;
                 dialogRecord = null;
                 break;

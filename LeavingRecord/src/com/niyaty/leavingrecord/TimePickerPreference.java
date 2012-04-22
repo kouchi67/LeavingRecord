@@ -25,7 +25,6 @@ public class TimePickerPreference extends DialogPreference {
 
     @Override
     protected View onCreateDialogView() {
-        Log.d(null, "called onCreateDialogView");
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.timepicker_dialog, null);
@@ -57,21 +56,17 @@ public class TimePickerPreference extends DialogPreference {
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-//        Log.d(null, "onGetDefaultValue");
-//        Log.d(null, "a.getText >>>> " + (String) a.getText(index));
         preferenceValue = (String) a.getText(index);
         return super.onGetDefaultValue(a, index);
     }
 
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-        Log.d(null, "called onSetInitialValue");
         if (restorePersistedValue) {
             preferenceValue = getPersistedString(preferenceValue);
         } else {
             preferenceValue = (String) defaultValue;
             persistString(preferenceValue);
-            Log.d(null, "called defaultValue = <" + preferenceValue + ">");
         }
     }
 

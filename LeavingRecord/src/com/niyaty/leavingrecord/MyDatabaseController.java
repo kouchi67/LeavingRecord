@@ -56,7 +56,7 @@ public class MyDatabaseController {
                         " '" + record.getRestTime() + "' , " +
                         " '" + record.getRemarks() + "' , " +
                         record.getHoliday() + " ) ;";
-        Log.d(null, sql);
+//        Log.d(null, sql);
         db.execSQL(sql);
     }
 
@@ -70,7 +70,7 @@ public class MyDatabaseController {
                         MyRecord.REMARKS + " = '" + record.getRemarks() + "', " +
                         MyRecord.HOLIDAY + " = " + record.getHoliday() + " " +
                         "where " + MyRecord.ID + " = " + record.getId() + ";";
-        Log.d(null, sql);
+//        Log.d(null, sql);
         db.execSQL(sql);
     }
 
@@ -78,7 +78,7 @@ public class MyDatabaseController {
         String sql =
                 "delete from " + MyRecord.TABLE_NAME + " where " +
                         MyRecord.ID + " = " + record.getId() + ";";
-        Log.d(null, sql);
+//        Log.d(null, sql);
         db.execSQL(sql);
     }
 
@@ -87,7 +87,7 @@ public class MyDatabaseController {
                 "select * from " + MyRecord.TABLE_NAME +
                         " where date like " + "'" + yearMonth + "%'" +
                         " order by date asc;";
-        Log.d(null, sql);
+//        Log.d(null, sql);
         Cursor c = db.rawQuery(sql, null);
         return c;
     }
