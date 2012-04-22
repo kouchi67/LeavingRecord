@@ -4,6 +4,7 @@ package com.niyaty.leavingrecord;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -44,6 +45,8 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
     private ListView listView;
     private TextView dateLabel;
 
+    private int selectedPosition;
+
     // 休日設定のdialog用
     private EditText dialogEditText;
     private MyRecord dialogRecord;
@@ -73,7 +76,8 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                selectedPosition = position;
                 registerForContextMenu(listView);
                 return false;
             }
@@ -186,6 +190,7 @@ public class CalendarListViewActivity extends Activity implements OnClickListene
         switch (item.getItemId()) {
             case 0: // 「勤怠を入力する」タップ
                 Intent intent = new Intent(getApplicationContext(), InputViewActivity.class);
+                intent.putExtra("record", records.get(selectedPosition));
                 startActivity(intent);
                 break;
             case 1: // 「休日に設定する」タップ
